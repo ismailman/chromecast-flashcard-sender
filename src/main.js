@@ -42,10 +42,9 @@ _.extend(App.prototype, {
 	},
 
 	_handleSessionEvents: function(event){
-		console.log('_handleSessionEvents', arguments);
-		this._session = event;
-		this._session.addUpdateListener(this._handleSessionUpdateEvents);
-		this._session.addMessageListener(namespace, this._onMessage.bind(this));
+	  this._session = event;
+	  this._session.addUpdateListener(this._handleSessionUpdateEvents);
+	  this._session.addMessageListener(namespace, this._onMessage.bind(this));
 	},
 
 	_handleSessionUpdateEvents: function(isActive){
