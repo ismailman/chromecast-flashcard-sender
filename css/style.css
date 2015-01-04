@@ -1,0 +1,19 @@
+body {
+	margin: 0px;
+	background-color: black;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+
+body.active {
+	background-color: deepskyblue;
+}
+
+#card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	font-size: 20ex;
+	color: rgb(195, 0, 0);
+}
