@@ -64,7 +64,7 @@ _.extend(App.prototype, {
 
 	sendMessage: function(message){
 		if (this._session) {
-			session.sendMessage(namespace, message, onSuccess.bind(this, "Message sent: " + message), onError);
+			this._session.sendMessage(namespace, message);
 		}
 		else {
 			chrome.cast.requestSession(function(e) {
