@@ -33,7 +33,7 @@ _.extend(App.prototype, {
 	},
 
 	_handleReceiverEvents: function(event){
-		if( e === 'available' ){
+		if( event === 'available' ){
 			console.log('device available');
 		}
 		else{
@@ -42,7 +42,7 @@ _.extend(App.prototype, {
 	},
 
 	_handleSessionEvents: function(event){
-	  this._session = e;
+	  this._session = event;
 	  this._session.addUpdateListener(this._handleSessionUpdateEvents);
 	  this._session.addMessageListener(namespace, this._onMessage.bind(this));
 	},
