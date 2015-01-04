@@ -84,5 +84,5 @@ function onError(err){
 
 setTimeout(function(){
 	var app = new App();
-}, 10000);
+}, 1000);
 
