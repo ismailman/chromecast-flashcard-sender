@@ -5,19 +5,13 @@ var namespace = 'urn:x-cast:simple-flashcard';
 
 var App = function(){
 	this._session = null;
-	this._button = document.getElementById('send');
 
-	this._bindToButton();
 	this._setupCastSession();
+
+	this.renderWordSets(wordSets);
 };
 
 _.extend(App.prototype, {
-
-	_bindToButton: function(){
-		this._button.addEventListener('click', function(){
-			this.sendMessage('monkeys');
-		}.bind(this));
-	},
 
 	_setupCastSession: function(){
 		var sessionRequest = new chrome.cast.SessionRequest(applicationID);
@@ -72,6 +66,70 @@ _.extend(App.prototype, {
 				this.sendMessage(message);
 			}.bind(this), onError);
 		}
+	},
+
+	renderWordSets: function(wordSets){
+		wordSets.forEach(this._renderWordSet);
+	},
+
+	_renderWordSet: function(wordSet){
+		var setDiv = document.createElement('div');
+		setDiv.classList.add('word-set');
+
+		var header = document.createElement('div');
+		header.classList.add('word-set-header');
+
+		var title = document.createElement('div');
+		title.classList.add('word-set-title');
+		title.textContent = wordSet.title;
+		header.appendChild(title);
+
+		var show = document.createElement('span');
+		show.classList.add('word-set-show');
+		show.textContent = 'Show on TV';
+		header.appendChild(show);
+
+		setDiv.appendChild(header);
+
+
+		var body = document.createElement('div');
+		body.classList.add('word-set-body');
+		body.style.display = 'none';
+
+		setDiv.appendChild(body);
+
+		wordSet.words.forEach(function(word){
+
+			var wordDiv = document.createElement('div');
+			wordDiv.classList.add('word');
+			wordDiv.textContent = word;
+
+			body.appendChild(wordDiv);
+
+		});
+
+		title.addEventListener('click', function(){
+
+			if(body.style.display === 'none'){
+				body.style.display = '';
+			}
+			else{
+				body.style.display = 'none';
+			}
+
+		});
+
+		var self = this;
+		show.addEventListener('click', function(){
+			self.sendMessage(JSON.stringify({
+				interval: document.getElementById('interval').value ? parseFloat(document.getElementById('interval').value) * 1000 : 2000,
+				words: wordSet.words
+			}));
+		});
+
+		var wordSetsDiv = document.getElementById('word-sets');
+		wordSetsDiv.appendChild(setDiv);
+
 	}
 
 });
@@ -82,6 +140,46 @@ function onError(err){
 }
 
 setTimeout(function(){
-	var app = new App();
+	window.app = new App();
 }, 1000);
 
+
+var wordSets = [
+	{
+		title: 'Most Common In My Life',
+		words: [
+			'Amaya',
+			'mommy',
+			'daddy',
+			'halmony',
+			'haribodgy',
+			'teta',
+			'geddo',
+			'uncle',
+			'aunt',
+			'cousin',
+			'friend',
+			'neighbor',
+			'Marley',
+			'Thelma-Lea',
+			'love',
+			'milk',
+			'eat',
+			'food',
+			'sleep',
+			'bath',
+			'nap',
+			'change',
+			'diaper',
+			'clothes',
+			'home',
+			'car',
+			'stroller',
+			'bumbo',
+			'orange',
+			'breakfast',
+			'lunch',
+			'dinner'
+		]
+	}
+];
