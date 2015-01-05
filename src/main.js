@@ -69,7 +69,7 @@ _.extend(App.prototype, {
 	},
 
 	renderWordSets: function(wordSets){
-		wordSets.forEach(this._renderWordSet);
+		wordSets.forEach(this._renderWordSet.bind(this));
 	},
 
 	_renderWordSet: function(wordSet){
