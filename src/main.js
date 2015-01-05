@@ -122,7 +122,7 @@ _.extend(App.prototype, {
 		var self = this;
 		show.addEventListener('click', function(){
 			self.sendMessage(JSON.stringify({
-				interval: document.getElementById('interval').value ? parseFloat(document.getElementById('interval').value) * 1000 : 2000,
+				interval: document.getElementById('interval').value ? parseFloat(document.getElementById('interval').value) * 1000 : 3000,
 				words: wordSet.words
 			}));
 		});
